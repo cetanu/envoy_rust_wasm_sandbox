@@ -1,0 +1,21 @@
+version: '2.3'
+
+services:
+  envoy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    links:
+      - httpbin
+    working_dir: /srv
+    ports:
+      - 9901:9901
+      - 80:8080
+    expose:
+      - 9901
+      - 80
+    environment:
+      ENVOY_UID: '0'
+
+  httpbin:
+    image: kennethreitz/httpbin

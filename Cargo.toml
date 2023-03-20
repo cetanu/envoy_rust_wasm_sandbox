@@ -1,8 +1,21 @@
 [package]
-name = "envoy_rust_wasm_sandbox"
+name = "rust_envoy_wasm_sandbox"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"]
 
 [dependencies]
+log = "0.4"
+proxy-wasm = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1
+panic = "abort"
+strip = "debuginfo"
